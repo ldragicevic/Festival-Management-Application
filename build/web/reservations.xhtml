@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/layout.xhtml">
+
+            <!-- Header -->
+            <ui:define name="header">               
+                <h:outputScript library="js" name="bootstrap.min.js" />                  
+                <div style="border-bottom: 1px solid #d4d4d4; height: 50px;">
+                    <h1 style="display: inline-block; margin: 0px; padding: 0px; margin-left: 10px; font-family: Calibri;">
+                        Registred user
+                    </h1> 
+                    <style>
+                        li:hover {
+                            background-color: rgb(238, 238, 238);
+                        }
+                        input[type="submit"]:hover {
+                            color: #23527c;
+                            text-decoration: none;    
+                        }
+                    </style>
+                    <h:form style="float: right; display: inline-block; vertical-align: middle;">
+                        <div class="dropdown" >
+                            <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">welcome #{controller.username} &nbsp;
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="pull-right dropdown-menu ">
+                                <li>
+                                    <h:commandButton value="Rate Festivals" action="#{controller.rateFestivals()}" class="btn btn-link" style="width: 100%; text-decoration : none;"/>
+                                </li>
+                                <li>
+                                    <h:commandButton value="Visited/Attending Festivals" action="#{controller.visitedFestivals()}" class="btn btn-link" style="width: 100%; text-decoration : none;"/>
+                                </li>
+                                <li>
+                                    <h:commandButton value="Active Reservations" action="#{controller.reservations()}" class="btn btn-link" style="width: 100%; text-decoration : none;"/>
+                                </li>
+                                <li>
+                                    <h:commandButton value="Logout" action="#{controller.logout()}" class="btn btn-link" style="width: 100%; text-decoration : none;"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+
+            <!-- Content -->
+            <ui:define name="content"> 
+                <p:button rendered="false" />
+                <style>
+                    p {
+                        margin: 0px; padding: 0px;
+                    }
+                    td {
+                        padding: 15px;
+                        text-align: center;
+                    }
+                    th {
+                        padding: 10px;
+                        text-align: center;
+                    }
+                </style>
+                <div class="container" style="margin-top: 0px; text-align: center;">
+                    <div class="row" style="margin: 0px; padding: 0px; margin-bottom: 20px; margin-top: 10px;">
+                        <div class="col-md-12" style="margin-top: 10px; margin-bottom: 10px;"> 
+
+                            <style>
+                                p {
+                                    margin: 0px; padding: 0px;
+                                }
+                                td {
+                                    padding: 15px;
+                                    text-align: center;
+                                }
+                                th {
+                                    padding: 10px;
+                                    text-align: center;
+                                } 
+                            </style>
+                            <h5 style="color: #0044cc; font-size: 1.7em;">
+                                <h:outputText value="My Reservations" />                                        
+                            </h5> 
+                            <h:form>
+                                <h:dataTable value="#{controller.myReservations}" var="item" style="display: inline-block">
+                                    <h:column>
+                                        <f:facet name="header">Name</f:facet>
+                                        <h:outputText value="#{item.festivalName}" />                                            
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Festival Date</f:facet>
+                                        <h:outputText value="#{(item.date == null ? 'All Days' : item.date)}">
+                                            <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="CET"/>
+                                        </h:outputText>        
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Reserved On</f:facet>
+                                        <h:outputText value="#{item.reserved}">
+                                            <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="CET"/>
+                                        </h:outputText>           
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Price</f:facet>
+                                        <h:outputText value="#{item.price}" />                            
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">&nbsp;</f:facet>
+                                        <h:commandButton value="Remove" action="#{controller.removeReservation(item)}" class="btn btn-warning" />                            
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form>
+
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+            <!-- Footer -->
+            <ui:define name="footer">
+                <div style="padding-top: 10px;">
+                    <h:form style="float: right; display: inline-block; padding-top: 10px;">
+                        <h:commandButton value="Home" class="btn btn-default" action="user?faces-redirect=true" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>  
+                <style>
+                    body {                        
+                        background-image: url(resources/files/background.jpg);
+                        background-size: 100%;
+                        background-attachment: fixed;
+                    }
+                </style>
+            </ui:define>
+
+        </ui:composition>
+
+
+    </h:body>
+</html>
+

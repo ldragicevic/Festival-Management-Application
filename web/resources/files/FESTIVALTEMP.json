@@ -1,0 +1,42 @@
+{
+	"Festival": {
+		"Name": "Beer Fest",
+		"Place": "Belgrade, Usce",
+		"StartDate": "17/08/2017",
+		"EndDate": "21/08/2017",
+		"Tickets": ["200","800"],
+		"Amount": ["4","100"],
+
+		"PerformersList": [
+			{
+			"Performer": "Viva Vox",
+			"StartDate": "17/08/2017",
+			"EndDate": "17/08/2017",
+			"StartTime": "08:00:00 PM",
+			"EndTime": "09:30:00 PM"
+			},
+			{
+			"Performer": "Van Gog",
+			"StartDate": "20/08/2017",
+			"EndDate": "21/08/2017 ",
+			"StartTime": "10:45:00 PM",
+			"EndTime": "01:30:00 AM"
+			}
+		],
+
+		"SocialNetworks": [
+			{
+			"Name": "Facebook",
+			"Link": "https://www.facebook.com/belgradebeerfest"
+			},
+			{
+			"Name": "Twitter",
+			"Link": "http://twitter.com/bgbeerfest"
+			},
+			{
+			"Name": "YouTube",
+			"Link": "http://www.youtube.com/Belgradebeerfest"
+			}
+		]
+	}
+}

@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2017 2:55:45 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entities.Festivals" table="festivals" catalog="pia" optimistic-lock="version">
+        <id name="idfest" type="java.lang.Integer">
+            <column name="IDFest" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="45" not-null="true" />
+        </property>
+        <property name="place" type="string">
+            <column name="place" length="45" not-null="true" />
+        </property>
+        <property name="begin" type="date">
+            <column name="begin" length="10" not-null="true" />
+        </property>
+        <property name="end" type="date">
+            <column name="end" length="10" not-null="true" />
+        </property>
+        <property name="priceDay" type="int">
+            <column name="priceDay" not-null="true" />
+        </property>
+        <property name="priceFestival" type="int">
+            <column name="priceFestival" not-null="true" />
+        </property>
+        <property name="facebook" type="string">
+            <column name="facebook" length="100" />
+        </property>
+        <property name="twitter" type="string">
+            <column name="twitter" length="100" />
+        </property>
+        <property name="instagram" type="string">
+            <column name="instagram" length="100" />
+        </property>
+        <property name="youtube" type="string">
+            <column name="youtube" length="100" />
+        </property>
+        <property name="visited" type="long">
+            <column name="visited" not-null="true" />
+        </property>
+        <property name="ticketsPerUser" type="int">
+            <column name="ticketsPerUser" not-null="true" />
+        </property>
+        <property name="ticketsPerDay" type="int">
+            <column name="ticketsPerDay" not-null="true" />
+        </property>
+        <property name="totalRating" type="int">
+            <column name="totalRating" not-null="true" />
+        </property>
+        <property name="numberRatings" type="int">
+            <column name="numberRatings" not-null="true" />
+        </property>
+        <property name="income" type="long">
+            <column name="income" not-null="true" />
+        </property>
+        <set name="userses" table="blocked" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="IDFest" not-null="true" />
+            </key>
+            <many-to-many entity-name="entities.Users">
+                <column name="IDUser" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="messageses" table="messages" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="IDFest" not-null="true" />
+            </key>
+            <one-to-many class="entities.Messages" />
+        </set>
+        <set name="fileses" table="files" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="IDFest" not-null="true" />
+            </key>
+            <one-to-many class="entities.Files" />
+        </set>
+        <set name="days" table="day" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="IDFest" not-null="true" />
+            </key>
+            <one-to-many class="entities.Day" />
+        </set>
+        <set name="performerses" table="performers" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="IDFest" not-null="true" />
+            </key>
+            <one-to-many class="entities.Performers" />
+        </set>
+        <set name="ticketses" table="tickets" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="IDFest" not-null="true" />
+            </key>
+            <one-to-many class="entities.Tickets" />
+        </set>
+        <set name="commentses" table="comments" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="IDFest" not-null="true" />
+            </key>
+            <one-to-many class="entities.Comments" />
+        </set>
+    </class>
+</hibernate-mapping>

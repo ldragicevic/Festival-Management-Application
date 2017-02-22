@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2017 2:55:45 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entities.Performers" table="performers" catalog="pia" optimistic-lock="version">
+        <id name="idper" type="java.lang.Integer">
+            <column name="IDPer" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="festivals" class="entities.Festivals" fetch="select">
+            <column name="IDFest" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="45" not-null="true" />
+        </property>
+        <property name="start" type="timestamp">
+            <column name="start" length="19" not-null="true" />
+        </property>
+        <property name="end" type="timestamp">
+            <column name="end" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,49 @@
+{
+	"Festival": {
+		"Name": "Exit",
+		"Place": "Novi Sad, Serbia",
+		"StartDate": "15/07/2017",
+		"EndDate": "19/07/2017",
+		"Tickets": ["49","149"],
+		"Amount": ["5","10000"],
+
+		"PerformersList": [
+			{
+			"Performer": "ExitPerformer1",
+			"StartDate": "15/07/2017",
+			"EndDate": "15/07/2017",
+			"StartTime": "08:00:00 PM",
+			"EndTime": "09:30:00 PM"
+			},
+			{
+			"Performer": "ExitPerformer2",
+			"StartDate": "15/07/2017",
+			"EndDate": "15/07/2017 ",
+			"StartTime": "10:45:00 PM",
+			"EndTime": "01:30:00 AM"
+			},
+			{
+			"Performer": "ExitPerformer3",
+			"StartDate": "16/07/2017",
+			"EndDate": "16/07/2017 ",
+			"StartTime": "10:45:00 PM",
+			"EndTime": "01:30:00 AM"
+			}
+		],
+
+		"SocialNetworks": [
+			{
+			"Name": "Facebook",
+			"Link": "www.facebook.com/exit.festival/"
+			},
+			{
+			"Name": "Twitter",
+			"Link": "https://twitter.com/ExitFestival"
+			},
+			{
+			"Name": "YouTube",
+			"Link": "https://www.instagram.com/exitfestival/"
+			}
+		]
+	}
+}

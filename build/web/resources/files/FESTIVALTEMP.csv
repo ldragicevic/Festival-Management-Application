@@ -1,0 +1,26 @@
+"Festival","Place","StartDate","EndDate"
+"Beer Fest","Belgrade, Usce","17/08/2017","21/08/2017"
+
+"TicketType","Price"
+"per day","200"
+"whole festival","800"
+
+"TicketsInfo","Count"
+"per user","4"
+"per day","100"
+
+"Performer","StartDate","EndDate","StartTime","EndTime"
+"Viva Vox","17/08/2017","17/08/2017","08:00:00 PM","09:00:00 PM"
+"Rudimental Live","17/08/2017","17/08/2017","09:15:00 PM","10:30:00 PM"
+"Elemental","17/08/2017","17/08/2017","10:45:00 PM","11:45:00 PM"
+"LET 3","18/08/2017","18/08/2017","00:00:00 AM","01:00:00 AM"
+"Bajaga","17/08/2017","17/08/2017","08:00:00 PM","10:00:00 PM"
+"Riblja Corba","18/08/2017","18/08/2017","08:00:00 PM","10:00:00 PM"
+"YU Grupa","19/08/2017","19/08/2017","09:00:00 PM","11:00:00 PM"
+"Kerber","20/08/2017","21/08/2017","11:00:00 PM","01:00:00 AM"
+
+"Social Network","Link"
+"Facebook","https://www.facebook.com/belgradebeerfest"
+"Twitter","http://twitter.com/bgbeerfest"
+"Instagram","http://instagram.com/belgradebeerfest"
+"YouTube","http://www.youtube.com/Belgradebeerfest"

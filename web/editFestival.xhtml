@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/layout.xhtml">
+
+            <!-- Header -->
+            <ui:define name="header">
+                <div style="border-bottom: 1px solid #d4d4d4; height: 50px;">
+                    <h1 style="display: inline-block; margin: 0px; padding: 0px; margin-left: 10px; font-family: Calibri;">Admin panel</h1>                    
+                    <h:form style="float: right; display: inline-block; vertical-align: middle;">
+                        <h:commandButton value="Logout #{controller.username}" class="btn btn-info" action="#{controller.logout()}" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>
+            </ui:define>
+
+            <!-- Content -->
+            <ui:define name="content">               
+                <div class="container">
+                    <div class="row">
+                        <h5 style="color: #0044cc; font-size: 1.7em;">
+                            <h:outputText value="Festival Edit" />                                        
+                        </h5>
+                        
+                        <h:form>
+                            <p:panelGrid columns="2" style="display: inline-block; background-color: transparent;" >
+
+                                <p:outputLabel for="name">name</p:outputLabel>
+                                <p:inputText value="#{admin.editFestival.name}" id="name" maxlength="45" class="form-control" required="true" requiredMessage="Name missing." style="width: 203px; height: 30px; padding: 5px; margin-left: 4px;"/>
+
+                                <p:outputLabel for="place">place</p:outputLabel>
+                                <p:inputText value="#{admin.editFestival.place}" id="place" maxlength="45" class="form-control" required="true" requiredMessage="Place missing." style="width: 203px; height: 30px; padding: 5px; margin-left: 4px;" />
+
+                                <p:outputLabel for="begin">begin</p:outputLabel>
+                                <p:calendar id="begin" value="#{admin.editFestival.begin}" readonlyInput="true" pattern="dd-MM-yyyy" style="width: 200px; height: 30px; padding: 5px;" />                                                                     
+
+                                <p:outputLabel for="end">end</p:outputLabel>
+                                <p:calendar id="end" value="#{admin.editFestival.end}" readonlyInput="true" pattern="dd-MM-yyyy" style="width: 200px; height: 30px; padding: 5px;" />
+
+                            </p:panelGrid>
+                            <p:dataTable var="item" value="#{admin.editFestival.performerses}" rows="10"
+                                         style="text-align: center; margin-top: 25px;" 
+                                         class="table-striped table-hover">
+                                <p:column headerText="name">
+                                    <p:inputText value="#{item.name}" required="true" />
+                                </p:column>
+                                <p:column headerText="begin">
+                                    <h:outputText value="#{item.start}">
+                                        <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="CET"/>
+                                    </h:outputText> 
+                                </p:column>
+                                <p:column headerText="end">
+                                    <h:outputText value="#{item.end}">
+                                        <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="CET"/>
+                                    </h:outputText> 
+                                </p:column> 
+                            </p:dataTable>
+                            
+                            <p:commandButton action="#{admin.editFestivalsCommit()}" value="Save Changes" class="btn btn-success" style="margin: 15px;"/>                            
+                            
+                        </h:form>
+                    </div>
+                </div> 
+
+                <style>
+                    body {
+                        background-size: 100%;
+                        background-attachment: fixed;
+                        background-image: url(resources/files/background.jpg);
+                    }
+                </style>
+
+            </ui:define>
+
+            <!-- Footer -->
+            <ui:define name="footer">
+                <div style="padding-top: 10px;">
+                    <h:form style="float: right; display: inline-block;">
+                        <h:commandButton value="Admin Panel" class="btn btn-default" action="#{admin.adminPanelPage()}" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>          
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+
+

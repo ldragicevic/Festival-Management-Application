@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/layout.xhtml">
+
+            <!-- Header -->
+            <ui:define name="header">    
+                <h:outputScript library="js" name="bootstrap.min.js" />                  
+                <div style="border-bottom: 1px solid #d4d4d4; height: 50px;">
+                    <h1 style="display: inline-block; margin: 0px; padding: 0px; margin-left: 10px; font-family: Calibri;">
+                        Admin panel
+                    </h1>                    
+                    <h:form style="float: right; display: inline-block; vertical-align: middle;">
+                        <h:commandButton value="Logout #{controller.username}" action="#{controller.logout()}" class="btn btn-info" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>
+            </ui:define>
+
+            <!-- Content -->
+            <ui:define name="content">               
+                <div class="container" >
+                    <div class="row" style="text-align: center;">   
+                        <h2 style="color: #761c19;">
+                            <h:outputText value="#{admin.ticketMessage == '' ? '' : admin.ticketMessage}" />
+                        </h2>
+
+                        <style>
+                            th {
+                                padding: 15px;
+                                margin: 25px;
+                                text-align: center;
+                            }
+                            td {
+                                padding: 5px;
+                                margin: 5px;
+                                text-align: center; 
+                            }
+                        </style>
+
+                        <h:form style="text-align: center;">
+                            <h1 style="color: #0044cc;">Ticket Order</h1>
+                            <h:panelGrid columns="2" style="display: inline-block;">
+                                <h:outputText value="Name" style="font-size: 1em; font-weight: 700;"/>
+                                <h:outputText value="#{admin.festival.name}" />
+                                <h:outputText value="Single Price" style="font-size: 1em; font-weight: 700;"/>
+                                <h:outputText value="#{admin.festival.priceDay}" />
+                                <h:outputText value="Full Price" style="font-size: 1em; font-weight: 700;"/>
+                                <h:outputText value="#{admin.festival.priceFestival}" />
+                                <h:outputText value="Date" style="font-size: 1em; font-weight: 700;"/>
+                                <p:calendar mindate="#{admin.festival.begin}" maxdate="#{admin.festival.end}" value="#{admin.date}" pattern="dd-MM-yyyy" />
+                                <h:outputText value="Ticket number" style="font-size: 1em; font-weight: 700;"/>
+                                <p:inputNumber required="true" decimalSeparator="" minValue="1" maxValue="#{admin.festival.ticketsPerUser}" value="#{admin.number}" />
+                            </h:panelGrid>
+                            <br/>        
+                            <h3 style="color: #0044cc;">Status</h3>
+                            <h:dataTable value="#{admin.days}" var="item" style="display: inline-block;"  class="table-striped table-hover">
+                                <h:column>
+                                    <f:facet name="header">Day</f:facet>
+                                    <h:outputText value="#{item.date}">
+                                        <f:convertDateTime type="date" pattern="dd.MM.yyyy." timeZone="CET"/>
+                                    </h:outputText>                                           
+                                </h:column>                                                                        
+                                <h:column>
+                                    <f:facet name="header">Total</f:facet>
+                                    <h:outputText value="#{item.totalTickets}"/>                                         
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">Remaining</f:facet>
+                                    <h:outputText value="#{item.leftTickets}"/>                                         
+                                </h:column> 
+                            </h:dataTable>
+                            <br/>
+                            <h:commandButton value="Single Ticket" class="btn btn-warning"
+                                             style="margin: 10px;" action="#{admin.reserveTicket('single')}"/>
+                            <h:commandButton value="Full Ticket" class="btn btn-warning" 
+                                             style="margin: 10px;" action="#{admin.reserveTicket('full')}"/>
+                        </h:form>
+                    </div> 
+                </div>
+                <style>
+                    body {                        
+                        background-image: url(resources/files/background.jpg);
+                        background-size: 100%;
+                        background-attachment: fixed;
+                    }
+                </style>
+            </ui:define>
+
+            <!-- Footer -->
+            <ui:define name="footer">
+                <div style="padding-top: 10px;">
+                    <h:form style="float: right; display: inline-block; padding-top: 10px;">
+                        <h:commandButton value="Admin Panel" class="btn btn-default" action="#{admin.adminPanelPage()}" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>  
+                <p:button rendered="false"/>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

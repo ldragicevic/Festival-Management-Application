@@ -1,0 +1,399 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>    
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/layout.xhtml">                        
+
+            <!-- Header -->
+            <ui:define name="header">
+                <div style="border-bottom: 1px solid #d4d4d4; height: 50px;">
+                    <h1 style="display: inline-block; margin: 0px; padding: 0px; margin-left: 10px; font-family: Calibri;">Admin panel</h1>                    
+                    <h:form style="float: right; display: inline-block; vertical-align: middle;">
+                        <h:commandButton value="Logout #{controller.username}" class="btn btn-info" action="#{controller.logout()}" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>
+            </ui:define>
+
+            <!-- Content -->
+            <ui:define name="content">     
+
+                <style>           
+                    .ui-panelgrid td, .ui-panelgrid tr
+                    {
+                        border-style: none !important;
+                        background-color: transparent;
+                    }
+                </style>
+
+                <h:form enctype="multipart/form-data">
+                    <!-- Steps Progress and Details - START -->
+                    <div class="container" style="margin-top: 50px; text-align: center;">
+
+                        <div class="row">
+                            <h3 style="margin-bottom: 20px; margin-top: 0px;">New Festival</h3>
+                            <div class="progress" id="progress1">
+                                <div class="progress-bar progress-bar-info progress-bar-striped"
+                                     role="progressbar" 
+                                     aria-valuenow="20"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     style="width: 20%;">
+                                </div>
+                                <span class="progress-completed">20%</span>
+                            </div>
+                        </div>
+
+                        <div class="row" style="text-align: center;">
+                            <div class="row step" style="text-align: center; display: inline-block;">
+                                <div class="col-md-2 activestep" onclick="javascript: resetActive(event, 20, 'step-1');" style="width: 200px;">
+                                    <p>General Information</p>
+                                </div>
+                                <div class="col-md-2" onclick="javascript: resetActive(event, 40, 'step-2');" style="width: 200px;">
+                                    <p>Pricing &amp; Amount</p>
+                                </div>
+                                <div class="col-md-2" onclick="javascript: resetActive(event, 60, 'step-3');" style="width: 200px;">
+                                    <p>Social Media Links</p>
+                                </div>
+                                <div class="col-md-2" onclick="javascript: resetActive(event, 80, 'step-4');" style="width: 200px;">
+                                    <p>Performers List</p>
+                                </div>
+                                <div class="col-md-2" onclick="javascript: resetActive(event, 100, 'step-5');" style="width: 200px;">
+                                    <p>Photos &amp; Videos</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row setup-content step activeStepInfo" id="step-1">
+                            <div class="col-xs-12">
+                                <div class="col-md-12 well text-center" style="background-color: transparent;">
+                                    <h5 style="margin-bottom: 15px; margin-top: 0px; font-weight: 600; color: #0088cc;">Fill In Festival General Information</h5>
+                                    <p:panelGrid columns="3" style="display: inline-block; background-color: transparent;" >
+
+                                        <p:outputLabel for="name">name</p:outputLabel>
+                                        <p:inputText value="#{festival.name}" id="name" maxlength="45" class="form-control" required="true" requiredMessage="Name missing." style="width: 203px; height: 30px; padding: 5px; margin-left: 4px;"/>
+                                        <p:message for="name" style="color: red" />
+
+                                        <p:outputLabel for="place">place</p:outputLabel>
+                                        <p:inputText value="#{festival.place}" id="place" maxlength="45" class="form-control" required="true" requiredMessage="Place missing." style="width: 203px; height: 30px; padding: 5px; margin-left: 4px;" />
+                                        <p:message for="place" style="color: red" />
+
+                                        <p:outputLabel for="begin">begin</p:outputLabel>
+                                        <p:calendar id="begin" value="#{festival.begin}" readonlyInput="true" pattern="dd-MM-yyyy" style="width: 200px; height: 30px; padding: 5px;" />                                                                     
+                                        <p:message for="begin" style="color: red" />
+
+                                        <p:outputLabel for="end">end</p:outputLabel>
+                                        <p:calendar id="end" value="#{festival.end}" readonlyInput="true" pattern="dd-MM-yyyy" style="width: 200px; height: 30px; padding: 5px;" />
+                                        <p:message for="begin" style="color: red" />
+
+                                    </p:panelGrid>
+                                    <h4 style="color: #f40909;"><h:outputText value="#{festival.message == '' ? '' : festival.message}" /></h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row setup-content step hiddenStepInfo" id="step-2">
+                            <div class="col-xs-12">
+                                <div class="col-md-12 well text-center">
+                                    <h5 style="margin-bottom: 15px; margin-top: 0px; font-weight: 600; color: #0088cc;">Fill In Pricing &amp; Amount Information</h5>
+                                    <p:panelGrid columns="3" style="display: inline-block; background-color: transparent;" >                                                                               
+                                        <p:outputLabel for="priceDay">daily price</p:outputLabel>
+                                        <p:inputNumber value="#{festival.priceDay}" id="priceDay"  maxlength="20" required="true" requiredMessage="Daily price is required." validatorMessage="Enter number." style="width: 203px; height: 30px; padding: 5px;">
+                                            <f:validateLongRange minimum="1"/>
+                                        </p:inputNumber>
+                                        <p:message for="priceDay"/>
+
+                                        <p:outputLabel for="priceFestival">full price</p:outputLabel>
+                                        <p:inputNumber value="#{festival.priceFestival}" id="priceFestival" required="true" requiredMessage="Full price is required." validatorMessage="Enter number." style="width: 203px; height: 30px; padding: 5px; ">
+                                            <f:validateLongRange minimum="1"/>
+                                        </p:inputNumber>
+                                        <p:message for="priceFestival"/>
+
+                                        <p:outputLabel for="ticketsPerUser">max per user</p:outputLabel>
+                                        <p:inputNumber value="#{festival.ticketsPerUser}" id="ticketsPerUser"  required="true" requiredMessage="Tickets per user is required."  style="width: 203px; height: 30px; padding: 5px;  ;">
+                                            <f:validateLongRange minimum="1"/>
+                                        </p:inputNumber>
+                                        <p:message for="ticketsPerUser"/>
+
+                                        <p:outputLabel for="ticketsPerDay">daily tickets</p:outputLabel>
+                                        <p:inputNumber value="#{festival.ticketsPerDay}" id="ticketsPerDay"  required="true" requiredMessage="Daily tikets is required." style="width: 203px; height: 30px; padding: 5px; ">
+                                            <f:validateLongRange minimum="1"/>
+                                        </p:inputNumber>
+                                        <p:message for="ticketsPerDay"/>   
+                                    </p:panelGrid>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row setup-content step hiddenStepInfo" id="step-3">
+                            <div class="col-xs-12">
+                                <div class="col-md-12 well text-center">
+                                    <h5 style="margin-bottom: 15px; margin-top: 0px; font-weight: 600; color: #0088cc;">Fill In Social Media Links Information</h5>
+                                    <p:panelGrid columns="2" style="display: inline-block; background-color: transparent;" >                                                                                                                       
+                                        <p:outputLabel for="facebook">facebook</p:outputLabel>
+                                        <p:inputText value="#{festival.facebook}" id="facebook" maxlength="100" class="form-control" style="width: 203px; height: 30px; padding: 5px;  ;"/>
+
+                                        <p:outputLabel for="twitter">twitter</p:outputLabel>
+                                        <p:inputText value="#{festival.twitter}" id="twitter" maxlength="100" class="form-control" style="width: 203px; height: 30px; padding: 5px;  ;"/>
+
+                                        <p:outputLabel for="instagram">instagram</p:outputLabel>
+                                        <p:inputText value="#{festival.instagram}" id="instagram" maxlength="100" class="form-control" style="width: 203px; height: 30px; padding: 5px;  ;"/>
+
+                                        <p:outputLabel for="youtube">youtube</p:outputLabel>
+                                        <p:inputText value="#{festival.youtube}" id="youtube" maxlength="100" class="form-control" style="width: 203px; height: 30px; padding: 5px;  ;"/>                                                                              
+                                    </p:panelGrid>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row setup-content step hiddenStepInfo" id="step-4">
+                            <div class="col-xs-12">
+                                <div class="col-md-12 well text-center" >
+                                    <h5 style="margin-bottom: 25px; margin-top: 0px; font-weight: 600; color: #0088cc;">Fill In Performer List Information</h5>
+
+                                    <!-- STEP 2 FORM -->    
+                                    <p style="width: 200px; display: inline-block;">name</p>
+                                    <p style="width: 200px; display: inline-block;">begin date</p>
+                                    <p style="width: 200px; display: inline-block;">begin time</p>
+                                    <p style="width: 200px; display: inline-block;">end date</p> 
+                                    <p style="width: 200px; display: inline-block;">end time</p>
+                                    <br/>        
+
+                                    <input type="text" name="names"  style="width: 18%; display: inline-block;" class="form-control" />                                       
+                                    <input type="date" name="begindates" class="form-control"  style="width: 18%; display: inline-block;"/>
+                                    <input type="time" name="begintimes" class="form-control" style="width: 18%; display: inline-block;"/>
+                                    <input type="date" name="enddates" class="form-control"  style="width: 18%; display: inline-block;"/>
+                                    <input type="time" name="endtimes" class="form-control" style="width: 18%; display: inline-block;"/>
+
+                                    <input type="hidden" id="performersID" />
+
+                                    <br/><br/>
+                                    <button id="b1" class="btn btn-warning add-more" type="button">Add Performer</button>
+
+                                    <script>
+                                        $(document).ready(function () {
+                                            var next = 1;
+                                            $(".add-more").click(function (e) {
+                                                e.preventDefault();
+                                                var addto = "#performersID";
+                                                next = next + 1;
+
+                                                var newIn = '<input type="text" name="names"  style="width: 18%; display: inline-block;" class="form-control" /> ';
+                                                var newIn2 = '<input type="date" name="begindates" class="form-control"  style="width: 18%; display: inline-block;"/>';
+                                                var newIn3 = '<input type="time" name="begintimes" class="form-control" style="width: 18%; display: inline-block;"/>';
+                                                var newIn4 = '<input type="date" name="enddates" class="form-control"  style="width: 18%; display: inline-block;"/>';
+                                                var newIn5 = '<input type="time" name="endtimes" class="form-control" style="width: 18%; display: inline-block;"/>';
+
+                                                var newInput = $(newIn);
+                                                var newInput2 = $(newIn2);
+                                                var newInput3 = $(newIn3);
+                                                var newInput4 = $(newIn4);
+                                                var newInput5 = $(newIn5);
+
+                                                $(addto).before("&nbsp;");
+                                                $(addto).before(newInput);
+                                                $(addto).before("&nbsp;");
+                                                $(addto).before(newInput2);
+                                                $(addto).before("&nbsp;");
+                                                $(addto).before(newInput3);
+                                                $(addto).before("&nbsp;");
+                                                $(addto).before(newInput4);
+                                                $(addto).before("&nbsp;");
+                                                $(addto).before(newInput5);
+                                                $(addto).before("&nbsp;");
+
+
+
+                                            });
+                                        });
+                                    </script>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row setup-content step hiddenStepInfo" id="step-5">
+                            <div class="col-xs-12">
+                                <div class="col-md-12 well text-center">
+
+                                    <h5 style="margin-bottom: 15px; margin-top: 0px; font-weight: 600; color: #0088cc;">Fill In Media Content</h5>
+                                    <h6 style="margin-bottom: 15px; margin-top: 0px;">Insert up to 10 images or videos (.mp4, .jpeg, .jpg, .png)</h6>
+
+                                    <!-- STEP 3 FORM -->                                    
+                                    <p:fileUpload value="#{festival.files[1]}"  mode="simple" id="FILE1" accept="image/jpeg, image/jpg, image/png, video/mp4" class="form-control" />
+                                    <p:fileUpload value="#{festival.files[2]}"  mode="simple" id="FILE2" accept="image/jpeg, image/jpg, image/png, video/mp4" class="form-control" />
+                                    <p:fileUpload value="#{festival.files[3]}"  mode="simple" id="FILE3" accept="image/jpeg, image/jpg, image/png, video/mp4" class="form-control" />
+                                    <p:fileUpload value="#{festival.files[4]}"  mode="simple" id="FILE4" accept="image/jpeg, image/jpg, image/png, video/mp4" class="form-control" />
+                                    <p:fileUpload value="#{festival.files[5]}"  mode="simple" id="FILE5" accept="image/jpeg, image/jpg, image/png, video/mp4" class="form-control" />
+                                    <p:fileUpload value="#{festival.files[6]}"  mode="simple" id="FILE6" accept="image/jpeg, image/jpg, image/png, video/mp4" class="form-control" />
+                                    <p:fileUpload value="#{festival.files[7]}"  mode="simple" id="FILE7" accept="image/jpeg, image/jpg, image/png, video/mp4" class="form-control" />
+                                    <p:fileUpload value="#{festival.files[8]}"  mode="simple" id="FILE8" accept="image/jpeg, image/jpg, image/png, video/mp4" class="form-control" />
+                                    <p:fileUpload value="#{festival.files[9]}"  mode="simple" id="FILE9" accept="image/jpeg, image/jpg, image/png, video/mp4" class="form-control" />                                    
+                                    <p:fileUpload value="#{festival.files[10]}" mode="simple" id="FILE10" accept="image/jpeg, image/jpg, image/png, video/mp4" class="form-control" />
+
+                                    <h:commandButton value="Create" action="#{festival.createFestival()}" class="btn btn-success" style="margin: 15px; margin-bottom: 0px;"/>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 150px;">
+                            &nbsp;
+                        </div>
+                    </div>
+
+                    <style>
+                        p {                        
+                            margin: 3px;
+                            padding: 2px;
+                        }
+                        .hiddenStepInfo {
+                            display: none;
+                            height: 20px;
+                        }
+
+                        .activeStepInfo {
+                            display: block !important;
+                        }
+
+                        .underline {
+                            text-decoration: underline;
+                        }
+
+                        .step {
+                            margin-top: 27px;
+                        }
+
+                        .progress {
+                            position: relative;
+                            height: 25px;
+                        }
+
+                        .progress > .progress-type {
+                            position: absolute;
+                            left: 0px;
+                            font-weight: 800;
+                            padding: 3px 30px 2px 10px;
+                            color: rgb(255, 255, 255);
+                            background-color: rgba(25, 25, 25, 0.2);
+                        }
+
+                        .progress > .progress-completed {
+                            position: absolute;
+                            right: 0px;
+                            font-weight: 800;
+                            padding: 3px 10px 2px;
+                        }
+
+                        .step {
+                            text-align: center;
+                        }
+
+                        .step .col-md-2 {
+                            background-color: #fff;
+                            border: 1px solid #C0C0C0;
+                            border-right: none;
+                        }
+
+                        .step .col-md-2:last-child {
+                            border: 1px solid #C0C0C0;
+                        }
+
+                        .step .col-md-2:first-child {
+                            border-radius: 5px 0 0 5px;
+                        }
+
+                        .step .col-md-2:last-child {
+                            border-radius: 0 5px 5px 0;
+                        }
+
+                        .step .col-md-2:hover {
+                            color: #f40909;
+                            cursor: pointer;
+                        }
+
+                        .step .activestep {
+                            color: #f40909;     
+                            height: 32px;
+                            border-left: 3px solid #23a8f5 !important;
+                            border-right: 3px solid #23a8f5 !important;
+                            border-top: 3px solid #23a8f5 !important;
+                            border-bottom: 3px solid #23a8f5 !important;
+                            vertical-align: central;
+                        }
+
+                        .step .fa {
+                            padding-top: 15px;
+                            font-size: 40px;
+                        }
+                    </style>
+
+                    <script type="text/javascript">
+                        function resetActive(event, percent, step) {
+                            $(".progress-bar").css("width", percent + "%").attr("aria-valuenow", percent);
+                            $(".progress-completed").text(percent + "%");
+
+                            $("div").each(function () {
+                                if ($(this).hasClass("activestep")) {
+                                    $(this).removeClass("activestep");
+                                }
+                            });
+
+                            if (event.target.className == "col-md-2") {
+                                $(event.target).addClass("activestep");
+                            } else {
+                                $(event.target.parentNode).addClass("activestep");
+                            }
+
+                            hideSteps();
+                            showCurrentStepInfo(step);
+                        }
+
+                        function hideSteps() {
+                            $("div").each(function () {
+                                if ($(this).hasClass("activeStepInfo")) {
+                                    $(this).removeClass("activeStepInfo");
+                                    $(this).addClass("hiddenStepInfo");
+                                }
+                            });
+                        }
+
+                        function showCurrentStepInfo(step) {
+                            var id = "#" + step;
+                            $(id).addClass("activeStepInfo");
+                        }
+                    </script>
+
+                    <!-- Steps Progress and Details - END -->
+                </h:form>   
+
+                <style>
+                    body {
+                        background-size: 100%;
+                        background-attachment: fixed;
+                       background-image: url(resources/files/background.jpg);
+                    }
+                </style>
+
+            </ui:define>                       
+
+            <!-- Footer -->
+            <ui:define name="footer">
+                <div style="padding-top: 10px;">
+                    <h:form style="float: right; display: inline-block;">
+                        <h:commandButton value="Admin Panel" class="btn btn-default" action="#{admin.adminPanelPage()}" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>          
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

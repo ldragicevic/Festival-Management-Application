@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2017 2:55:45 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entities.Day" table="day" catalog="pia" optimistic-lock="version">
+        <id name="idday" type="java.lang.Integer">
+            <column name="IDDay" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="festivals" class="entities.Festivals" fetch="select">
+            <column name="IDFest" not-null="true" />
+        </many-to-one>
+        <property name="date" type="date">
+            <column name="date" length="10" not-null="true" />
+        </property>
+        <property name="totalTickets" type="int">
+            <column name="totalTickets" not-null="true" />
+        </property>
+        <property name="leftTickets" type="int">
+            <column name="leftTickets" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

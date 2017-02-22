@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/layout.xhtml">                        
+
+            <!-- Header -->
+            <ui:define name="header">                              
+                <h:outputScript library="js" name="bootstrap.min.js" />    
+                <div style="border-bottom: 1px solid #d4d4d4; height: 50px;">
+                    <h1 style="display: inline-block; margin: 0px; padding: 0px; margin-left: 10px; font-family: Calibri;">Admin panel</h1>                    
+                    <h:form style="float: right; display: inline-block; vertical-align: middle;">
+                        <h:commandButton value="Logout #{controller.username}" class="btn btn-info" action="#{controller.logout()}" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>
+            </ui:define>
+
+
+            <!-- Content -->
+            <ui:define name="content"> 
+
+                <div class="container" style="margin-top: 0px; text-align: center;">
+
+                    <div class="row" style="margin: 0px; padding: 0px; margin-bottom: 20px; margin-top: 10px;">
+
+                        <div class="col-md-12" style="margin-top: 10px; margin-bottom: 10px;"> 
+                            <h1 style="font-weight: 600; color: #006dcc; margin-top: 0px; font-size: 5em;">
+                                <h:outputText value="#{festivalViaFile.festival.name}" />
+                            </h1>                            
+                            <h4 style="font-weight: 200; color: #d58512; font-size: 2.2em;">
+                                <h:outputText value="#{festivalViaFile.festival.place}" />                                
+                            </h4>                            
+                            <h5 style="font-weight: 100; margin-top: 20px; font-size: 1.4em; color: #a94442;">
+                                <h:outputText value="#{festivalViaFile.festival.begin}" style="font-size: 1.3em;">
+                                    <f:convertDateTime type="date" pattern="dd.MM.yyyy." timeZone="CET"/>
+                                </h:outputText>
+                                <h:outputText value=" to " />
+                                <h:outputText value="#{festivalViaFile.festival.end}" style="font-size: 1.3em;">
+                                    <f:convertDateTime type="date" pattern="dd.MM.yyyy." timeZone="CET"/>
+                                </h:outputText>
+                            </h5> 
+                            <h5 style="font-weight: 200; color: #a94442; margin-top: 20px;">
+                                <h:outputLink value="#{festivalViaFile.festival.facebook}" target="_blank">
+                                    <h:outputText value="#{festivalViaFile.festival.facebook ==  null ? '' : 'facebook'}"/>
+                                </h:outputLink> &nbsp;
+                                <h:outputLink value="#{festivalViaFile.festival.twitter}" target="_blank">
+                                    <h:outputText value="#{festivalViaFile.festival.twitter ==  null ? '' : 'twitter'}"/>
+                                </h:outputLink> &nbsp;    
+                                <h:outputLink value="#{festivalViaFile.festival.instagram}" target="_blank">
+                                    <h:outputText value="#{festivalViaFile.festival.instagram ==  null ? '' : 'instagram'}"/>
+                                </h:outputLink> &nbsp;          
+                                <h:outputLink value="#{festivalViaFile.festival.youtube}" target="_blank">
+                                    <h:outputText value="#{festivalViaFile.festival.youtube ==  null ? '' : 'youtube'}"/>
+                                </h:outputLink>
+                            </h5>  
+                        </div>                            
+                    </div>
+
+                    <div class="row" style="text-align: center;">
+
+
+                        <ul class="nav nav-tabs" style="display: inline-block;">
+                            <li class="active"><a data-toggle="tab" href="#home">Performers</a></li>
+                            <li><a data-toggle="tab" href="#menu1">Pricing</a></li>                           
+                            <li><a data-toggle="tab" href="#menu2">Photos</a></li>
+                            <li><a data-toggle="tab" href="#menu3">Videos</a></li>
+                            <li><a data-toggle="tab" href="#menu4">Comments</a></li>
+                            <li><a data-toggle="tab" href="#menu5">Ratings</a></li>
+                        </ul>
+
+                        <style>
+                            p {
+                                margin: 0px; padding: 0px;
+                            }
+                            td {
+                                padding: 15px;
+                                text-align: center;
+                            }
+                            th {
+                                padding: 10px;
+                                text-align: center;
+                            }
+                        </style>
+
+                        <div class="tab-content">
+
+                            <div id="home" class="tab-pane fade in active" style="margin-top: 20px;">
+
+                                <h:dataTable value="#{festivalViaFile.performers}" var="performer" style="display: inline-block" class="table-striped table-hover">
+                                    <h:column>
+                                        <f:facet name="header">Name</f:facet>
+                                        <h:outputText value="#{performer.name}" />                                            
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Starts</f:facet>
+                                        <h:outputText value="#{performer.start}">
+                                            <f:convertDateTime type="date" pattern="dd-MM-yyyy hh:mm" timeZone="CET"/>
+                                        </h:outputText>                                            
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Ends</f:facet>
+                                        <h:outputText value="#{performer.end}">
+                                            <f:convertDateTime type="date" pattern="dd-MM-yyyy hh:mm" timeZone="CET"/>
+                                        </h:outputText>                                                
+                                    </h:column>
+                                </h:dataTable>
+                            </div>
+
+                            <div id="menu1" class="tab-pane fade" style="margin-top: 20px;">      
+                                <table class="table-striped table-hover" style="display: inline-block;"> 
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Price/Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Daily Ticket</td>
+                                            <td><h:outputText value="#{festivalViaFile.festival.priceDay}" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Full Ticket</td>
+                                            <td> <h:outputText value="#{festivalViaFile.festival.priceFestival}" />  </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Max Tickets Per Person</td>
+                                            <td><h:outputText value="#{festivalViaFile.festival.ticketsPerUser}" />  </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Daily Ticket Amount</td>
+                                            <td><h:outputText value="#{festivalViaFile.festival.ticketsPerDay}" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>    
+
+                            </div>
+
+                            <!-- GALERIJA -->                            
+                            <div id="menu2" class="tab-pane fade" style="margin-top: 20px; text-align: center; ">                                                                                                                                
+                                <style>
+                                    a:hover {
+                                        text-decoration: none;
+                                    }
+                                </style>
+                                <p:lightBox styleClass="imagebox" id="lighbox1">  
+                                    <ui:repeat value="#{festivalViaFile.images}" var="image">
+                                        <h:outputLink value="uploads/#{image}" title="#{festivalViaFile.festival.name}">                                                                                       
+                                            <img src="uploads/#{image}" style="height: 120px; width: 180px; margin: 5px; box-shadow: 2px 2px 2px #888888" />                                            
+                                        </h:outputLink>
+                                    </ui:repeat>
+                                </p:lightBox>
+
+                            </div>
+
+                            <div id="menu3" class="tab-pane fade" style="margin-top: 20px; text-align: center; ">
+
+                                <ui:repeat value="#{festivalViaFile.videos}" var="video">
+                                    <video width="350" controls="true" style="margin: 10px; box-shadow: 2px 2px 2px #888888">
+                                        <source src="uploads/#{video}" type="video/mp4" />
+                                    </video> 
+                                </ui:repeat>       
+
+                            </div>
+
+                            <div id="menu4" class="tab-pane fade">
+                                In progress
+                            </div>
+
+                            <div id="menu5" class="tab-pane fade">
+                                In progress
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="text-align: center; margin-top: 50px;">
+                        <h:form style="display: inline-block;">
+                            <h:commandButton action="#{festivalViaFile.reject()}" value="Reject" class="btn btn-warning" style="padding: 10px; margin: 10px;"/>
+                        </h:form>   
+
+                        <h:form style="display: inline-block;">
+                            <h:commandButton action="#{festivalViaFile.approve()}" value="Approve" class="btn btn-success" style="padding: 10px; margin: 10px;"/>
+                        </h:form>
+                    </div>
+
+                    <div style="height: 100px;">
+                        &nbsp;
+                    </div>
+
+                </div>
+
+                <style>
+                    body {                        
+                        background-image: url(resources/files/background.jpg);
+                        background-size: 100%;
+                        background-attachment: fixed;
+                    }
+                </style>
+            </ui:define>                       
+
+
+            <!-- Footer -->
+            <ui:define name="footer">
+                <div style="padding-top: 10px;">
+                    <h:form style="float: right; display: inline-block;">
+                        <h:commandButton value="Admin Panel" class="btn btn-default" action="#{admin.adminPanelPage()}" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>          
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

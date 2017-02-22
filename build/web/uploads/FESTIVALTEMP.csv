@@ -1,0 +1,20 @@
+"Festival","Place","StartDate","EndDate"
+"Bestival","Dorset, United Kingdom","17/10/2017","21/10/2017"
+
+"TicketType","Price"
+"per day","199"
+"whole festival","499"
+
+"TicketsInfo","Count"
+"per user","4"
+"per day","5000"
+
+"Performer","StartDate","EndDate","StartTime","EndTime"
+"UltraPerf1","17/10/2017","17/10/2017","08:00:00 PM","09:00:00 PM"
+"UltraPerf2","17/10/2017","17/10/2017","09:15:00 PM","10:30:00 PM"
+"UltraPerf3","17/10/2017","17/10/2017","10:45:00 PM","11:45:00 PM"
+
+"Social Network","Link"
+"Facebook","www.facebook.com/bestivalfestival"
+"Twitter","https://twitter.com/Bestival"
+"Instagram","www.instagram.com/bestival"

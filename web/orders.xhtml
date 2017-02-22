@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/layout.xhtml">
+
+            <!-- Header -->
+            <ui:define name="header">
+                <div style="border-bottom: 1px solid #d4d4d4; height: 50px;">
+                    <h1 style="display: inline-block; margin: 0px; padding: 0px; margin-left: 10px; font-family: Calibri;">Admin panel</h1>                    
+                    <h:form style="float: right; display: inline-block; vertical-align: middle;">
+                        <h:commandButton value="Logout #{controller.username}" class="btn btn-info" action="#{controller.logout()}" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>
+            </ui:define>
+
+            <!-- Content -->
+            <ui:define name="content">               
+                <div class="container">
+                    <div class="row">
+                        <p:dataTable var="item" value="#{admin.orders}" rows="10"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10"
+                                     style="text-align: center; margin-top: 25px;" 
+                                     class="table-striped table-hover">
+
+                            <p:column headerText="ID">
+                                <h:outputText value="#{item.idtic}" style="color: #{item.isBought == 0 ? 'red' : 'blue'};" />
+                            </p:column>  
+
+                            <p:column headerText="festival">
+                                <h:outputText value="#{item.festivalName}" style="color: #{item.isBought == 0 ? 'red' : 'blue'};"/>
+                            </p:column>
+
+                            <p:column headerText="date">
+                                <h:outputText value="#{item.date}" style="color: #{item.isBought == 0 ? 'red' : 'blue'};"/>
+                            </p:column>
+
+                            <p:column headerText="price">
+                                <h:outputText value="#{item.price}" style="color: #{item.isBought == 0 ? 'red' : 'blue'};"/>
+                            </p:column>  
+                                                                                    
+                            <p:column headerText="">
+                                <h:form>
+                                    <h:commandButton action="#{admin.approveTicket(item)}" value="Approve Ticket" class="btn btn-success"/>
+                                </h:form>
+                            </p:column>
+                            
+                        </p:dataTable>                        
+                    </div>                    
+                </div> 
+
+                <style>
+                    body {
+                        background-size: 100%;
+                        background-attachment: fixed;
+                        background-image: url(resources/files/background.jpg);
+                    }
+                </style>
+
+            </ui:define>
+
+            <!-- Footer -->
+            <ui:define name="footer">
+                <div style="padding-top: 10px;">
+                    <h:form style="float: right; display: inline-block;">
+                        <h:commandButton value="Admin Panel" class="btn btn-default" action="#{admin.adminPanelPage()}" style="margin-right: 10px;"/>
+                    </h:form>
+                </div>          
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

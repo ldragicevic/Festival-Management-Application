@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>    
+        <title>Festivals</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>              
+    </h:head>
+
+    <h:body>
+
+        <div id="header" style="margin: 10px;">
+            <ui:insert name="header">
+                <ui:include src="/template/header.xhtml" />
+            </ui:insert>
+            <h:outputStylesheet library="css" name="bootstrap.css"  />
+            <h:outputStylesheet library="css" name="bootstrap.min.css"  />
+            <h:outputStylesheet library="css" name="bootstrap-theme.css"  />
+            <h:outputStylesheet library="css" name="bootstrap-theme.min.css"  />
+        </div>
+
+        <div id="content">
+            <ui:insert name="content">
+                <ui:include src="/template/content.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div id="footer" class="footer navbar-fixed-bottom" style="margin: 10px; margin-bottom: 0px; padding-bottom: 10px;">
+            <ui:insert name="footer">
+                <ui:include src="/template/footer.xhtml" />
+            </ui:insert>
+        </div>            
+
+    </h:body>
+
+</html>
+
